@@ -1,0 +1,17 @@
+name: Build the image and deploy it
+on: [push]
+
+jobs:
+    build:
+        name: Builds the image
+        runs-on: ubunut-latest
+        steps:
+          - uses: actions/checkout@v1
+          - name: BUild and push the image
+            uses: docker/build-push-actions@v1
+              with:
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+                registry: docker.pkg.github.com
+                repository: polysoft1/cpp-conan
+                tag_with_ref: true
